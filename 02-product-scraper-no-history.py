@@ -22,6 +22,9 @@ def replace_all_chars(text, chars_to_replace="$()%,", replace_chars_with=""):
     return text
 
 
+url = 'https://stockx.com/adidas-ultra-boost-4-non-dye-cloud-white-sample'
+url = 'https://stockx.com/adidas-ultra-boost-atr-mid-reigning-champ-black'
+
 # run and collect data
 sneaker_list_data = []
 id_counter = 0
@@ -47,8 +50,11 @@ for url in adidas_stockx_url_list:
     # last sale
     last_sale = replace_all_chars(soup.find('div', class_='sale-value').text)
 
-    # last sale size
-    last_sale_size = soup.find('span', class_='bid-ask-sizes').text.split(' ')[1]
+    # last sale size, handle NoneType return
+    if soup.find('span', class_='bid-ask-sizes') == None:
+        last_sale_size = '--'
+    else:
+        last_sale_size = soup.find('span', class_='bid-ask-sizes').text.split(' ')[1]
 
     # lowest ask
     lowest_ask = replace_all_chars(
@@ -130,9 +136,9 @@ for url in adidas_stockx_url_list:
         "low_12_month_trade": low_12_month_trade,
         "high_12_month_trade": high_12_month_trade,
         "volatility": volatility,
-        "num_sales_12_month":num_sales_12_month,
-        "price_premium_12_month":price_premium_12_month,
-        "avg_sale_price_12_month":avg_sale_price_12_month
+        "num_sales_12_month": num_sales_12_month,
+        "price_premium_12_month": price_premium_12_month,
+        "avg_sale_price_12_month": avg_sale_price_12_month
     })
 
     print(f'Progress: {id_counter} of {len(adidas_stockx_url_list)} Completed')
@@ -141,4 +147,8 @@ for url in adidas_stockx_url_list:
 first_data = pd.DataFrame(sneaker_list_data)
 
 first_data.to_csv('./first_adi_data.csv', index=False)
+
+
+
+
 
