@@ -29,11 +29,13 @@ def attempt_login(driver):
         driver.find_element_by_id("login-toggle").click()
 
         # add username
-        username = driver.find_element_by_id("email-login").clear()
+        username = driver.find_element_by_id("email-login")
+        username.clear()
         username.send_keys(creds.EMAIL)
 
         # add password
-        password = driver.find_element_by_id("password-login").clear()
+        password = driver.find_element_by_id("password-login")
+        password.clear()
         password.send_keys(creds.PASSWORD)
 
         # log in button
@@ -62,12 +64,14 @@ def get_sales_history():
         driver.find_element_by_id("nav-signup").click()
 
         # add username
-        username = driver.find_element_by_id("email-login").clear()
-        username.send_keys("donvio@yahoo.com")
+        username = driver.find_element_by_id("email-login")
+        username.clear()
+        username.send_keys(creds.EMAIL)
 
         # add password
-        password = driver.find_element_by_name("password-login").clear()
-        password.send_keys("bball123!")
+        password = driver.find_element_by_id("password-login")
+        password.clear()
+        password.send_keys(creds.PASSWORD)
     except:
         pass
 
