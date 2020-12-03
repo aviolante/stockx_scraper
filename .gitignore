@@ -2,7 +2,6 @@
 /jordan_stockx_url_list.txt
 /nike_stockx_url_list.txt
 /scaper_tg.py
-/test.py
 /config/
 /lib/
 /adidas_data.txt
@@ -13,5 +12,3 @@
 /jordan_data.csv
 /jordan_data.txt
 /jordan_data_history.txt
-/adi_data_history.txt
-/nike_data_history.txt
