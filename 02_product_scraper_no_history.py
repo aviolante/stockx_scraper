@@ -10,10 +10,6 @@ pd.set_option('display.max_rows', None)
 with open('jordan_stockx_url_list.txt', 'r') as f:
     jordan_stockx_url_list = json.loads(f.read())
 
-# len(jordan_stockx_url_list)     22,803
-# len(nike_stockx_url_list)       13,809
-# len(adidas_stockx_url_list)     5,476
-
 
 def replace_all_chars(text, chars_to_replace="$()%,", replace_chars_with=""):
     """ replace characters for cleaner results """
@@ -22,14 +18,12 @@ def replace_all_chars(text, chars_to_replace="$()%,", replace_chars_with=""):
     return text
 
 
-jordan_stockx_url_list = list(set(jordan_stockx_url_list))
-
 # run and collect data
-# sneaker_list_data = []
+sneaker_list_data = []
 brand = "jordan"
 driver = webdriver.Firefox()
 
-for url in jordan_stockx_url_list[sneaker_list_data[-1]['id']+1:]:
+for url in jordan_stockx_url_list:
 
     # get url and pause
     driver.get(url)
@@ -166,11 +160,6 @@ for url in jordan_stockx_url_list[sneaker_list_data[-1]['id']+1:]:
         print(f'Progress: {id_counter} of {len(jordan_stockx_url_list)} Completed')
 
 
-# save out data to .txt and .csv
+# save out data
 with open('jordan_data.txt', 'w') as f:
     f.write(json.dumps(sneaker_list_data))
-
-first_data = pd.DataFrame(sneaker_list_data)
-first_data.to_csv('./jordan_data.csv', index=False)
-
-

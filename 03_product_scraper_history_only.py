@@ -7,15 +7,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 import time
-import pandas as pd
+
+
+in_file_name = 'nike_stockx_url_list.txt'
 
 # read in json url list
-with open('jordan_stockx_url_list.txt', 'r') as f:
-    jordan_stockx_url_list = json.loads(f.read())
-
-# len(jordan_stockx_url_list)     4,598
-# len(nike_stockx_url_list)       13,809
-# len(adidas_stockx_url_list)     5,476
+with open(in_file_name, 'r') as f:
+    product_url_list = json.loads(f.read())
 
 
 def attempt_login(driver):
@@ -120,9 +118,11 @@ def get_sales_history():
 # run and collect data
 sneaker_list_data = []
 id_counter = len(sneaker_list_data)
+
+# open firefox and go to stockx
 driver = webdriver.Firefox()
 
-for url in jordan_stockx_url_list:
+for url in product_url_list:
 
     driver.get(url)
     time.sleep(3)
@@ -131,26 +131,21 @@ for url in jordan_stockx_url_list:
         continue
 
     else:
-        # login and wait
         attempt_login(driver)
-        time.sleep(3)
+        time.sleep(5)
 
         # sales history
         sales_hist_data = get_sales_history()
-
         sneaker_list_data.append(sales_hist_data)
 
-        print(f'Progress: {id_counter} of {len(jordan_stockx_url_list)} Completed')
-
+        print(f'Progress: {id_counter} of {len(product_url_list)} Completed')
         id_counter += 1
-
         time.sleep(3)
 
 
-# save out data to .txt and .csv
-with open('jordan_data_history.txt', 'w') as f:
+out_file_name = 'nike_data_history.txt'
+
+# save out data
+with open(out_file_name, 'w') as f:
     f.write(json.dumps(sneaker_list_data))
-
-
-
 
