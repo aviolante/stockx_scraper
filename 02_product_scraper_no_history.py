@@ -48,32 +48,32 @@ for url in jordan_stockx_url_list:
         page_url = url
 
         # condition
-        if soup.find('div', class_='header-stat') == None:
+        if soup.find('div', class_='header-stat') is None:
             condition = '--'
         else:
             condition = soup.find('div', class_='header-stat').text.split(':')[1]
 
         # last sale
-        if soup.find('div', class_='sale-value') == None:
+        if soup.find('div', class_='sale-value') is None:
             last_sale = '--'
         else:
             last_sale = replace_all_chars(soup.find('div', class_='sale-value').text)
 
         # last sale size, handle NoneType return
-        if soup.find('span', class_='bid-ask-sizes') == None:
+        if soup.find('span', class_='bid-ask-sizes') is None:
             last_sale_size = '--'
         else:
             last_sale_size = soup.find('span', class_='bid-ask-sizes').text.split(' ')[1]
 
         # lowest ask
-        if soup.find('div', class_='bid bid-button-b') == None:
+        if soup.find('div', class_='bid bid-button-b') is None:
             lowest_ask = '--'
         else:
             lowest_ask = replace_all_chars(
                 soup.find('div', class_='bid bid-button-b').find('div', class_='stats').text.strip('Lowest Ask'))
 
         # highest bid
-        if soup.find('div', class_='ask ask-button-b') == None:
+        if soup.find('div', class_='ask ask-button-b') is None:
             highest_bid = '--'
         else:
             highest_bid = replace_all_chars(
